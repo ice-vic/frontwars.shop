@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontwars Game Online - Play Free Multiplayer Strategy Battle</title>
+    <meta name="description" content="Play Frontwars online for free! Experience intense multiplayer battles in this strategic warfare game. Build your army, conquer territories, and dominate the battlefield.">
+    <meta name="keywords" content="frontwars, frontwars game, frontwars online, multiplayer strategy game, battle game, warfare game">
+    <link rel="canonical" href="https://frontwars.shop">
+    <meta property="og:title" content="Frontwars Game Online - Play Free">
+    <meta property="og:description" content="Play Frontwars online for free! Strategic multiplayer warfare game.">
+    <meta property="og:url" content="https://frontwars.shop">
+    <meta property="og:type" content="website">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #1d1d1f;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .game-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            aspect-ratio: 16/9;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .fullscreen-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 10;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .fullscreen-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.05);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            padding: 20px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #667eea;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .desktop-nav {
+                display: none;
+            }
+
+            .game-container {
+                aspect-ratio: 4/3;
+            }
+
+            h1 {
+                font-size: 2rem !important;
+            }
+
+            h2 {
+                font-size: 1.5rem !important;
+            }
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+            padding: 20px 0;
+        }
+
+        .faq-question {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            color: #515154;
+            padding-top: 0;
+        }
+
+        .faq-answer.active {
+            max-height: 500px;
+            padding-top: 15px;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .game-link {
+            display: block;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            text-decoration: none;
+            color: #1d1d1f;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .game-link:hover {
+            background: white;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-glass fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-2xl font-bold gradient-text" style="margin: 0;">Frontwars</h1>
+                </div>
+                
+                <div class="desktop-nav flex space-x-8">
+                    <a href="#play" class="text-gray-700 hover:text-purple-600 font-medium transition">Play Now</a>
+                    <a href="#how-to-play" class="text-gray-700 hover:text-purple-600 font-medium transition">How to Play</a>
+                    <a href="#features" class="text-gray-700 hover:text-purple-600 font-medium transition">Features</a>
+                    <a href="#faq" class="text-gray-700 hover:text-purple-600 font-medium transition">FAQ</a>
+                    <a href="#more-games" class="text-gray-700 hover:text-purple-600 font-medium transition">More Games</a>
+                </div>
+
+                <div class="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#play" class="block py-3 text-gray-700 font-medium" onclick="toggleMenu()">Play Now</a>
+            <a href="#how-to-play" class="block py-3 text-gray-700 font-medium" onclick="toggleMenu()">How to Play</a>
+            <a href="#features" class="block py-3 text-gray-700 font-medium" onclick="toggleMenu()">Features</a>
+            <a href="#faq" class="block py-3 text-gray-700 font-medium" onclick="toggleMenu()">FAQ</a>
+            <a href="#more-games" class="block py-3 text-gray-700 font-medium" onclick="toggleMenu()">More Games</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-12 px-4">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">Frontwars Game Online</h1>
+            <p class="text-xl text-white mb-8 max-w-3xl mx-auto opacity-90">Experience the ultimate multiplayer strategy warfare game. Command your troops, dominate the battlefield, and claim victory in intense real-time battles!</p>
+        </div>
+    </section>
+
+    <!-- Game Section -->
+    <section id="play" class="pb-12 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="game-container">
+                <div class="fullscreen-btn" onclick="toggleFullscreen()">⛶ Fullscreen</div>
+                <iframe id="gameFrame" src="https://games.crazygames.com/en_US/frontwars-io/index.html" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Play -->
+    <section id="how-to-play" class="py-16 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="card p-8 md:p-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 gradient-text">How to Play Frontwars Game</h2>
+                <div class="space-y-4 text-gray-700 leading-relaxed">
+                    <p class="text-lg"><strong>Getting Started:</strong> Begin your Frontwars journey by selecting your faction and entering the battlefield. The objective is to capture and control territories while defending your base from enemy attacks.</p>
+                    
+                    <p class="text-lg"><strong>Controls:</strong> Use your mouse to select units and issue commands. Click on units to select them, then click on the destination to move. Right-click to attack enemy units or structures. Master these controls to execute strategic maneuvers.</p>
+                    
+                    <p class="text-lg"><strong>Strategy Tips:</strong> Balance your economy and military production. Capture resource points to increase your income, build diverse unit types to counter your opponents, and always maintain map awareness. Coordinate attacks and defend key positions to achieve victory.</p>
+                    
+                    <p class="text-lg"><strong>Winning the Game:</strong> Eliminate all enemy commanders or capture their headquarters to claim victory. Adapt your strategy based on the battlefield situation and outmaneuver your opponents to become the ultimate Frontwars champion.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advantages -->
+    <section id="advantages" class="py-16 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-white">Frontwars Game Advantages</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card p-8 text-center">
+                    <div class="feature-icon mx-auto">🎮</div>
+                    <h3 class="text-xl font-bold mb-3">Free to Play</h3>
+                    <p class="text-gray-600">No downloads or installations required. Play Frontwars instantly in your browser, completely free with full access to all features.</p>
+                </div>
+                <div class="card p-8 text-center">
+                    <div class="feature-icon mx-auto">🌐</div>
+                    <h3 class="text-xl font-bold mb-3">Cross-Platform</h3>
+                    <p class="text-gray-600">Enjoy seamless gameplay on PC, tablets, and mobile devices. Play anywhere, anytime with responsive controls optimized for all platforms.</p>
+                </div>
+                <div class="card p-8 text-center">
+                    <div class="feature-icon mx-auto">⚡</div>
+                    <h3 class="text-xl font-bold mb-3">Real-Time Multiplayer</h3>
+                    <p class="text-gray-600">Compete against players worldwide in intense real-time battles. Experience fast-paced strategic warfare with minimal lag and smooth performance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Features -->
+    <section id="features" class="py-16 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="card p-8 md:p-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 gradient-text">Core Features of Frontwars</h2>
+                <div class="space-y-6">
+                    <div class="flex items-start space-x-4">
+                        <div class="text-2xl">🎯</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Strategic Depth</h3>
+                            <p class="text-gray-600">Multiple unit types, diverse tactics, and deep strategic gameplay that rewards skilled players. Every decision matters in the heat of battle.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="text-2xl">🗺️</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Diverse Maps</h3>
+                            <p class="text-gray-600">Battle across various terrain types and map layouts. Each map offers unique strategic opportunities and challenges for players to master.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="text-2xl">🏆</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Competitive Ranking</h3>
+                            <p class="text-gray-600">Climb the global leaderboards and prove your strategic prowess. Track your progress and compete for the top position among players worldwide.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="text-2xl">👥</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Team Modes</h3>
+                            <p class="text-gray-600">Form alliances and coordinate with teammates in team-based modes. Communication and cooperation are key to achieving victory together.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="text-2xl">🎨</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Polished Graphics</h3>
+                            <p class="text-gray-600">Enjoy clean, vibrant visuals with smooth animations. The intuitive interface ensures you can focus on strategy rather than struggling with controls.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-16 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="card p-8 md:p-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 gradient-text">How Frontwars Works</h2>
+                <div class="space-y-6 text-gray-700">
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Resource Management System</h3>
+                        <p class="leading-relaxed">Frontwars features a dynamic resource economy where players collect resources from control points across the map. These resources fuel your war machine, allowing you to produce units and upgrade your capabilities. Strategic resource management is crucial for maintaining military superiority.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Combat Mechanics</h3>
+                        <p class="leading-relaxed">The game employs a rock-paper-scissors style combat system where different unit types excel against specific enemies. Infantry units are versatile and cost-effective, vehicles provide heavy firepower and mobility, while specialized units offer unique tactical advantages. Understanding these relationships is essential for victory.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Territory Control</h3>
+                        <p class="leading-relaxed">Victory is achieved through strategic territory control and enemy elimination. Capture and hold key points to expand your influence while denying resources to opponents. The dynamic frontline shifts as battles rage, requiring constant tactical adaptation and decisive action.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Multiplayer Architecture</h3>
+                        <p class="leading-relaxed">Built on robust real-time networking technology, Frontwars delivers smooth multiplayer experiences with minimal latency. The matchmaking system pairs players of similar skill levels, ensuring balanced and competitive matches that test your strategic abilities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-16 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="card p-8 md:p-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 gradient-text">Frequently Asked Questions</h2>
+                <div class="space-y-2">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>Is Frontwars free to play?</span>
+                            <span class="text-2xl">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            Yes, Frontwars is completely free to play online. You can access all game features without any downloads, installations, or payment requirements. Simply open your browser and start playing immediately.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>Can I play Frontwars on mobile devices?</span>
+                            <span class="text-2xl">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            Absolutely! Frontwars is fully optimized for mobile devices, tablets, and desktop computers. The responsive design ensures smooth gameplay across all screen sizes with touch-optimized controls for mobile users.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>Do I need to create an account?</span>
+                            <span class="text-2xl">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            No account is required to start playing Frontwars immediately. However, creating an account allows you to save your progress, track statistics, and maintain your position on the global leaderboards.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>What are the system requirements?</span>
+                            <span class="text-2xl">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            Frontwars runs smoothly on any modern web browser (Chrome, Firefox, Safari, Edge) with an internet connection. No special hardware or software is required beyond a standard device capable of web browsing.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>How do I improve my gameplay skills?</span>
+                            <span class="text-2xl">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            Practice is key to mastering Frontwars. Focus on learning unit counters, efficient resource management, and map awareness. Watch replays of skilled players, experiment with different strategies, and learn from each match to continuously improve your tactical abilities.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>Is there a single-player mode?</span>
+                            <span class="text-2xl">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            While Frontwars is primarily designed as a multiplayer experience, you can practice against AI opponents to hone your skills before competing against real players in ranked matches.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- More Games -->
+    <section id="more-games" class="py-16 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="card p-8 md:p-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 gradient-text">Explore More Games</h2>
+                <p class="text-gray-600 mb-6">Looking for more exciting online games? Check out these awesome titles:</p>
+                <div class="space-y-4">
+                    <a href="https://takeactions.click" class="game-link" target="_blank" rel="noopener">
+                        🎯 Take Actions - Strategic Action Game
+                    </a>
+                    <a href="https://fragen.click" class="game-link" target="_blank" rel="noopener">
+                        ❓ Fragen - Quiz and Trivia Challenge
+                    </a>
+                    <a href="https://bloxd.asia" class="game-link" target="_blank" rel="noopener">
+                        🧱 Bloxd - Creative Building Adventure
+                    </a>
+                    <a href="https://growagarden.mom" class="game-link" target="_blank" rel="noopener">
+                        🌱 Grow a Garden - Relaxing Gardening Simulator
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 mt-16">
+        <div class="max-w-7xl mx-auto text-center text-white">
+            <p class="mb-4 text-lg font-semibold">Frontwars - The Ultimate Online Strategy Battle Game</p>
+            <p class="text-sm opacity-80">© 2025 Frontwars.shop - All rights reserved. Play responsibly and enjoy the strategic warfare experience.</p>
+            <p class="text-xs opacity-60 mt-4">Frontwars is a multiplayer strategy game that combines tactical depth with accessible gameplay for players of all skill levels.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+        function toggleFullscreen() {
+            const gameContainer = document.querySelector('.game-container');
+            
+            if (!document.fullscreenElement) {
+                if (gameContainer.requestFullscreen) {
+                    gameContainer.requestFullscreen();
+                } else if (gameContainer.webkitRequestFullscreen) {
+                    gameContainer.webkitRequestFullscreen();
+                } else if (gameContainer.msRequestFullscreen) {
+                    gameContainer.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('span:last-child');
+            
+            answer.classList.toggle('active');
+            icon.textContent = answer.classList.contains('active') ? '−' : '+';
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
